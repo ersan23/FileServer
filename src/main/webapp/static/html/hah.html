@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="../js/ajaxfileupload.js"></script>
+</head>
+<body>
+	<fieldset>
+		<legend>上传PDF</legend>
+		<lable>名片:</lable>
+		<input type="file" id="file" name="file" onchange="pushImg();" /> <input
+			type="hidden" id="pic" name="pic" />
+	</fieldset>
+	<fieldset>
+		<legend>上传人物图片</legend>
+		<lable>名片:</lable>
+		<input type="file" id="image" name="image" onchange="pushImage();" /> <input
+			type="hidden" id="picd" name="picd" />
+	</fieldset>
+	<fieldset>
+		<legend>下载测试</legend>
+		<a href="/fileserver/file/downLoad.do?filePath=ren4.pdf">点击下载</a>
+	</fieldset>
+</body>
+<script type="text/javascript">
+function pushImg(){
+    var picpath="";
+    $.ajaxFileUpload({
+    　　　//　url : "http://58.16.181.24:9322/fileserver/file/PDFUpload.do",
+    　 url : "/file/PDFUpload.do",
+       fileElementId:'file',
+       success: function(res){
+           var response =jQuery.parseJSON(jQuery(res).text());
+      	 alert(response.data);
+       },
+        error:function(data,status,e){
+          alert(e);
+        }
+    });
+}
+function pushImage(){
+    var picpath="";
+    $.ajaxFileUpload({
+    　　　　url : "http://58.16.181.24:9322/fileserver/file/imageUpload.do",
+       fileElementId:'image',
+       dataType : "json",
+       success: function(res){
+           var response =jQuery.parseJSON(jQuery(res).text());
+      	 alert(response.data);
+       },
+        error:function(data,status,e){
+            alert(e);
+        }
+       }
+	);
+}
+</script> 
+</html>
